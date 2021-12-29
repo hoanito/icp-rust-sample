@@ -1,0 +1,12 @@
+type AchievementItem = 
+    record {
+        id: nat32;
+        name: text;
+        done: bool;
+    };
+
+service: {
+    add: (text) -> (nat32); 
+    get: () -> (vec AchievementItem) query;
+    mark_done: (nat32) -> (bool);
+}

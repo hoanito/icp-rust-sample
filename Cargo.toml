@@ -1,0 +1,17 @@
+[package]
+name = "achievement"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ic-cdk = "0.3.2"
+ic-cdk-macros = "0.3.2"
+candid = "0.7.8"
+serde = "1.0.130"
+
+#complile rust to wasm
+[lib] 
+path = "src/lib.rs"
+crate-type = ["cdylib"]
