@@ -1,5 +1,4 @@
 use candid::CandidType;
-use ic_cdk::*;
 use ic_cdk_macros::*;
 use serde::Deserialize;
 use std::cell::RefCell;
@@ -30,9 +29,8 @@ impl Default for RuntimeState {
     }
 }
 
-#[derive(Debug, Default, CandidType, Deserialize)]
-// Need to derive default as Achievement exist in RuntimeState
-// Need Candid type and Deserialize to restore data after upgrade
+#[derive(Debug, Default, CandidType, Deserialize)] // Need to derive default as Achievement exist in RuntimeState
+                                                   // Need Candid type and Deserialize to restore data after upgrade
 struct Achievement {
     items: Vec<AchievementItem>,
 }
@@ -44,6 +42,20 @@ struct AchievementItem {
     name: String,
     done: bool,
     date_added: TimeMillis,
+}
+
+#[derive(CandidType, Deserialize)]
+struct CanisterInfo {
+    balance: u64,
+    caller: String,
+}
+
+#[query]
+fn get_canister_info() -> CanisterInfo {
+    CanisterInfo {
+        balance: ic_cdk::api::canister_balance(),
+        caller: ic_cdk::api::caller().to_text(),
+    }
 }
 
 #[update] //publicly exposed API

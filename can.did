@@ -5,8 +5,15 @@ type AchievementItem =
         done: bool;
     };
 
+type CanisterInfo = 
+    record {
+        balance: nat64;
+        caller: text;
+    };
+
 service: {
     add: (text) -> (nat32); 
     get: () -> (vec AchievementItem) query;
     mark_done: (nat32) -> (bool);
+    get_canister_info: () -> (CanisterInfo) query;
 }
